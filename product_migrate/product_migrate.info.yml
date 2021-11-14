@@ -1,0 +1,5 @@
+type: module
+name: Migrate Product
+description: 'Migration for the end products.'
+core_version_requirement: ^8 || ^9
+package: Migration

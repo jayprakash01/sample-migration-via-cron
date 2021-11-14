@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Implements hook_uninstall().
+ */
+ function product_migrate_uninstall() {
+   $configs = [
+     'migrate_plus.migration.product',
+   ];
+
+   foreach($configs as $config) {
+     $delete = \Drupal::database()->delete('config')
+     ->condition('name', $config)
+     ->execute();
+   }
+   drupal_flush_all_caches();
+ }

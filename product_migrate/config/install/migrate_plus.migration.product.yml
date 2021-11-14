@@ -1,0 +1,24 @@
+id: product
+label: 'Migrate end product data'
+migration_group: product_migrate
+
+# Source Plugin
+source:
+  plugin: product
+  key: migrate
+
+# Process Plugin
+process:
+  title: title
+  field_sku: sku
+  field_url: url
+  field_detail: detail
+  field_price: price
+  field_images: images
+  field_origin: origin
+  field_scrape_date: scrapedate
+
+# Destination Plugin
+destination:
+  plugin: 'entity:node'
+  default_bundle: product
