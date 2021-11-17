@@ -1,16 +1,19 @@
-# Content migration via cron scheduler
+# Simple content migration via cron scheduler
 
-The product_migrate module extends the core migration system with API enhancements and additional functionality to migrate the content from external database to Drupal.
+The product_migrate module extends the core migration system to migrate the
+content from external database as source into Drupal nodes.
 
 ### Features of the module:
-* Migrate the product content form external database to Drupal nodes.
+* Migrate the product content form external database source into Drupal nodes.
 * Migration of the content will be performed using hook_cron().
-* It requires contrib modules migrate_plus (https://www.drupal.org/project/migrate_plus).
+* It requires contrib modules migrate_plus
+  (https://www.drupal.org/project/migrate_plus).
 
 ### Installation Steps
-1. Download the module (product_migrate) and its dependencies module (migrate_plus).
+
+1. Download the module(product_migrate) and dependencies module (migrate_plus).
 2. Enable the modules - migrate_plus and product_migrate.
-3. Add the external database(to be migrated) in active settings.php file.
+3. Add the external database(to be migrated) config in active settings.php file.
     ```sh
       $databases['migrate']['default'] = array (
         'database' => 'source_db',
@@ -32,26 +35,27 @@ The product_migrate module extends the core migration system with API enhancemen
       ],
     ];
   ```
-5. Set the scheduler time same as step 4 from Run Cron dropdown field (admin/config/system/cron).
+5. Choose the scheduler time as mentioned in step 4 from Cron dropdown
+   field (admin/config/system/cron) and save.
 
-6. Source database fields (plain text fields + datetime):
-    * title
-    * sku
-    * url
-    * detail
-    * price
-    * images
-    * origin
-    * scrapedate
+6. Source database fields content to be migrated:
+    * title (plain text)
+    * sku (plain text)
+    * url (plain text)
+    * detail (plain text)
+    * price (plain text)
+    * images (plain text)
+    * valid_date (datetime)
 
-7. Destination database fields (plain text fields + datetime) of product content type:
-    * title
-    * field_sku
-    * field_url
-    * field_detail
-    * field_price
-    * field_images
-    * field_origin
-    * field_scrape_date
+7. Destination database fields of the content type:
+    * title (plain text)
+    * field_sku (plain text)
+    * field_url (plain text)
+    * field_detail (plain text)
+    * field_price (plain text)
+    * field_images (plain text)
+    * field_valid_date (datetime)
 
-8. Entity type is node of product bundle.
+8. Entity type is node of the `product` bundle.
+
+9. All setup!

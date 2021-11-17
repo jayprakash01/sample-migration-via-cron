@@ -1,5 +1,5 @@
 type: module
-name: Migrate Product
-description: 'Migration for the end products.'
+name: Migrate content via cron jobs
+description: 'Migration of the content from database source via cron.'
 core_version_requirement: ^8 || ^9
 package: Migration

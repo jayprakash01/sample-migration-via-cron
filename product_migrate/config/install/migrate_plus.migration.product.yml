@@ -1,5 +1,5 @@
 id: product
-label: 'Migrate end product data'
+label: 'Migrate simple product content'
 migration_group: product_migrate
 
 # Source Plugin
@@ -15,8 +15,7 @@ process:
   field_detail: detail
   field_price: price
   field_images: images
-  field_origin: origin
-  field_scrape_date: scrapedate
+  field_valid_date: valid_date
 
 # Destination Plugin
 destination:

@@ -13,77 +13,74 @@ use Drupal\migrate\Row;
  *   source_module = "product_migrate",
  * )
  */
+class Product extends SqlBase {
 
- class Product extends SqlBase {
+  /**
+   * {@inheritdoc}
+   */
+  public function query() {
+    // Source data is queried from 'products' table.
+    $query = $this->select('products', 'p');
+    $query->fields('p', [
+      'title',
+      'sku',
+      'url',
+      'detail',
+      'price',
+      'images',
+      'valid_date',
+    ]);
 
-   /**
-    * {@inheritdoc}
-    */
-    public function query() {
-      // Source data is queried from 'end_products' table.
-      $query = $this->select('end_products', 'p');
-      $query->fields('p', [
-        'title',
-        'sku',
-        'url',
-        'detail',
-        'price',
-        'images',
-        'origin',
-        'scrapedate',
-      ]);
+    return $query;
+  }
 
-      return $query;
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function fields() {
+    $fields = $this->baseFields();
+    return $fields;
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-     public function fields() {
-       $fields = $this->baseFields();
-       return $fields;
-     }
+  /**
+   * {@inheritdoc}
+   */
+  public function baseFields() {
+    $fields = [
+      'title' => $this->t('Title'),
+      'sku' => $this->t('SKU'),
+      'url' => $this->t('Url'),
+      'detail' => $this->t('Detail'),
+      'price' => $this->t('Price'),
+      'images' => $this->t('Images'),
+      'valid_date' => $this->t('Product Valid Date'),
+    ];
 
-     /**
-      * {@inheritdoc}
-      */
-      public function baseFields() {
-        $fields = [
-          'title' => $this->t('Title' ),
-          'sku' => $this->t('SKU' ),
-          'url' => $this->t('URL'),
-          'detail' => $this->t('Detail'),
-          'price' => $this->t('Price' ),
-          'images' => $this->t('Images' ),
-          'origin' => $this->t('Origin' ),
-          'scrapedate' => $this->t('Scrape date' ),
-        ];
+    return $fields;
+  }
 
-        return $fields;
-      }
+  /**
+   * {@inheritdoc}
+   */
+  public function getIds() {
+    return [
+      'sku' => [
+        'type' => 'string',
+        'alias' => 'p',
+      ],
+    ];
+  }
 
-     /**
-      * {@inheritdoc}
-      */
-      public function getIds() {
-        return [
-          'sku' => [
-            'type' => 'string',
-            'alias' => 'p'
-          ],
-        ];
-      }
+  /**
+   * {@inheritdoc}
+   */
+  public function prepareRow(Row $row) {
+    $scrapedate = $row->getSourceProperty('valid_date');
+    $scrapedates = explode(' ', $scrapedate);
+    $datetime = $scrapedates[0] . 'T' . $scrapedates[1];
+    $row->setSourceProperty('datetime', $datetime);
 
-    /**
-     * {@inheritdoc}
-     */
-    public function prepareRow(Row $row) {
-      $scrapedate = $row->getSourceProperty('scrapedate');
-      $scrapedates = explode(' ', $scrapedate);
-      $datetime = $scrapedates[0] . 'T' . $scrapedates[1];
-      $row->setSourceProperty('datetime', $datetime);
+    return parent::prepareRow($row);
+  }
 
-      return parent::prepareRow($row);
-    }
-
- }
+}
