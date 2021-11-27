@@ -1,21 +1,18 @@
-id: product
+id: product_migration
 label: 'Migrate simple product content'
 migration_group: product_migrate
 
 # Source Plugin
 source:
-  plugin: product
+  plugin: product_migration
   key: migrate
 
 # Process Plugin
 process:
   title: title
   field_sku: sku
-  field_url: url
-  field_detail: detail
   field_price: price
-  field_images: images
-  field_valid_date: valid_date
+  field_valid_date: validDate
 
 # Destination Plugin
 destination:

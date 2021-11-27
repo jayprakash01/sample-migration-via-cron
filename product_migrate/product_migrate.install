@@ -10,7 +10,8 @@
  */
 function product_migrate_uninstall() {
   $configs = [
-    'migrate_plus.migration.product',
+    'migrate_plus.migration_group.product_migrate',
+    'migrate_plus.migration.product_migration',
   ];
 
   foreach ($configs as $config) {

@@ -9,7 +9,7 @@ use Drupal\migrate\Row;
  * Source plugin for product.
  *
  * @MigrateSource(
- *   id="product",
+ *   id="product_migration",
  *   source_module = "product_migrate",
  * )
  */
@@ -24,10 +24,7 @@ class Product extends SqlBase {
     $query->fields('p', [
       'title',
       'sku',
-      'url',
-      'detail',
       'price',
-      'images',
       'valid_date',
     ]);
 
@@ -49,10 +46,7 @@ class Product extends SqlBase {
     $fields = [
       'title' => $this->t('Title'),
       'sku' => $this->t('SKU'),
-      'url' => $this->t('Url'),
-      'detail' => $this->t('Detail'),
       'price' => $this->t('Price'),
-      'images' => $this->t('Images'),
       'valid_date' => $this->t('Product Valid Date'),
     ];
 
@@ -75,10 +69,10 @@ class Product extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    $scrapedate = $row->getSourceProperty('valid_date');
-    $scrapedates = explode(' ', $scrapedate);
-    $datetime = $scrapedates[0] . 'T' . $scrapedates[1];
-    $row->setSourceProperty('datetime', $datetime);
+    $valid_date = $row->getSourceProperty('valid_date');
+    $valid_date_arr = explode(' ', $valid_date);
+    $datetime = $valid_date_arr[0] . 'T' . $valid_date_arr[1];
+    $row->setSourceProperty('validDate', $datetime);
 
     return parent::prepareRow($row);
   }
